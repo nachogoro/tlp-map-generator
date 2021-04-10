@@ -3,14 +3,14 @@ package es.uned.tlp.mapgenerator;
 /**
  * Parameters with which a map is to be generated.
  */
-public class MapParameters {
+public class SingleMapParameters {
     public final int width;
     public final int height;
     public final int tendencyToGrow;
 
     public static final int defaultTendency = 40;
 
-    private MapParameters(int width, int height, int tendencyToGrow) {
+    public SingleMapParameters(final int width, final int height, final int tendencyToGrow) {
         this.width = width;
         this.height = height;
         this.tendencyToGrow = tendencyToGrow;
@@ -19,9 +19,9 @@ public class MapParameters {
     /**
      * Factory methods to generate parameters from command line arguments.
      * @param args Command-line arguments to the program.
-     * @return The parsed MapParameters or null if they couldn't be parsed.
+     * @return The parsed SingleMapParameters or null if they couldn't be parsed.
      */
-    public static MapParameters fromCommandLine(String[] args) {
+    public static SingleMapParameters fromCommandLine(final String[] args) {
         if (args.length < 2 || args.length > 3) {
             return null;
         }
@@ -43,10 +43,10 @@ public class MapParameters {
             return null;
         }
 
-        if (width == 0 || height == 0 || tendencyToGrow < 1 || tendencyToGrow > 100) {
+        if (width <= 0 || height <= 0 || tendencyToGrow < 1 || tendencyToGrow > 100) {
             return null;
         }
 
-        return new MapParameters(width, height, tendencyToGrow);
+        return new SingleMapParameters(width, height, tendencyToGrow);
     }
 }

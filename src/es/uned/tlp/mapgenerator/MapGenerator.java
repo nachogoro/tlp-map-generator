@@ -32,14 +32,12 @@ public class MapGenerator {
         }
     }
 
-    private static final Random rgen = new Random();
-
     /**
      * Generates a map with the given parameters and returns its Haskell-compatible string representation
      * @param params Parameters for the map.
      * @return The string representation of the map.
      */
-    public String generateMap(final MapParameters params) {
+    public int[][] generateMap(final SingleMapParameters params) {
         final Set<Coordinate> availableCoords = new HashSet<>();
 
         // Generate all possible coordinates
@@ -61,7 +59,7 @@ public class MapGenerator {
             region++;
         }
 
-        return mapToString(map);
+        return map;
     }
 
     /**
@@ -71,7 +69,7 @@ public class MapGenerator {
      * @return Element from the set picked at random.
      */
     private Coordinate getRandomElement(final Set<Coordinate> set) {
-        final int nElem = getRandomIntInclusive(0, set.size() - 1);
+        final int nElem = MapUtils.getRandomIntInclusive(0, set.size() - 1);
         int i = 0;
         for (Coordinate c : set) {
             if (i == nElem) {
@@ -137,45 +135,6 @@ public class MapGenerator {
     }
 
     /**
-     * Returns a random integer in the [min, max] range.
-     * @param min Minimum value of the integer (inclusive)
-     * @param max Maximum value of the integer (inclusive)
-     * @return A random integer in the [min, max] range.
-     */
-    private int getRandomIntInclusive(int min, int max) {
-        final int maxValueExcluded = max + 1;
-        return rgen.nextInt(maxValueExcluded - min) + min;
-    }
-
-    /**
-     * Returns a string representation of the given map.
-     * @param map Map.
-     * @return String representation of the given map.
-     */
-    private String mapToString(final int[][] map) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("[");
-        for (int row = 0; row < map.length; ++row) {
-            sb.append("[");
-            for (int col = 0; col < map[0].length; ++col) {
-                if (col != 0) {
-                    sb.append(", ");
-                }
-                sb.append(map[row][col]);
-            }
-            sb.append("]");
-
-            if (row != map.length - 1) {
-                sb.append(",\n");
-            }
-        }
-        sb.append("]");
-
-        return sb.toString();
-    }
-
-    /**
      * Simulates the flipping of a loaded coin and returns true if it gets heads.
      * @param loadFactor An integer between 1 and 100 which specifies how loaded
      *                   the coin is. 1 makes it very hard to land heads, while
@@ -183,6 +142,6 @@ public class MapGenerator {
      * @return {@code true} if we got heads, {@code false} otherwise
      */
     private boolean flipLoadedCoin(int loadFactor) {
-        return getRandomIntInclusive(1, 100)  <= loadFactor;
+        return MapUtils.getRandomIntInclusive(1, 100)  <= loadFactor;
     }
 }
