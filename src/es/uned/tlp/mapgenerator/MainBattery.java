@@ -16,7 +16,7 @@ public class MainBattery {
     }
 
     private static void showUsage() {
-        System.out.println("Usage: java -jar batterGenerator.jar <number_of_tests>");
+        System.out.println("Usage: java -jar batteryGenerator.jar <number_of_tests>");
         System.out.println("\t\t<number_of_maps>: (int > 0) Number of tests in the generated battery");
     }
 
